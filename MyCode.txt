@@ -1,0 +1,99 @@
+class Program
+    {
+        static double discriminant;
+        static double a, b, c;
+
+        static void Main(string[] args)
+        {
+            bool exit = false;
+            while (exit == false)
+            {
+                try
+                {
+                    Console.Write("Enter value 'a': ");
+                    a = Double.Parse(Console.ReadLine());
+
+                    Console.Write("Enter value 'b': ");
+                    b = Double.Parse(Console.ReadLine());
+
+                    Console.Write("Enter value 'c': ");
+                    c = Double.Parse(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Entred numbers should be DOUBLE !!!");
+                }
+
+                SetDiscriminant(b, a, c);
+
+                Console.WriteLine("Discriminant = {0}", discriminant);
+
+                Console.WriteLine(ShowStringResult(a, b));
+
+                Console.WriteLine("Do you want continue? 'y' or 'n'");
+                string answer = Console.ReadLine();
+                switch (answer)
+                {
+                    case "n":
+                        exit = true;
+                        break;
+                    case "y":
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+        }
+
+        static string ShowStringResult(double a, double b)
+        {
+            if (discriminant < 0)
+            {
+                return "Quadratic equation hasn't roots";
+            }
+            else if (discriminant == 0)
+            {
+                return "Quadratic equation has one root: x = " + GetOneRoot(a,b);
+            }
+            else if (discriminant > 0)
+            {
+                double[] solutions = GetTwoRoots(a,b);
+                return  "Quadratic equation has two root:\nx1 = " + solutions[0] + "\n" + "x2 = " + solutions[1];
+            }
+
+            return "Error";
+        }
+
+        
+
+        static double GetOneRoot(double a, double b)
+        {
+            double result = 0;
+            result = -b/2 * a;
+            return result;
+        }
+
+        static double[] GetTwoRoots(double a, double b)
+        {
+            double x1 = 0, x2 = 0;
+            //Кешируем расчеты
+            double helpSqrt = (Math.Sqrt(discriminant)) / (2 * a);
+
+            x1 = -b + helpSqrt;
+            x2 = -b - helpSqrt;
+
+            return new double[2] {x1, x2};
+            
+        }
+
+        static void SetDiscriminant(double b,double a, double c)
+        {
+            double result = 0;
+            result = Math.Pow(b, 2) - (4*(a*c));
+            discriminant = result;
+        }
+        
+
+
+    }
